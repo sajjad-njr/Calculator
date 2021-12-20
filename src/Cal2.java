@@ -2,13 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 
-public class Cal extends JFrame implements ActionListener {
+public class Cal2 extends JFrame implements ActionListener {
 
     JPanel panel1,panel2,panel3;
     JTextField tf1;
     JButton btn1,btn2,btn3,btn4,btn5 ,btn6,btn7,btn8,btn9,btn0,btnDot,btnEqual,btnClr ,btnAdd,btnSub,btnDiv,btnMul,btnPercent,btnBack;
-    Cal()
+    Cal2()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,500);
@@ -46,7 +47,7 @@ public class Cal extends JFrame implements ActionListener {
 
 
         btn1 = new JButton("1");btn1.setFont(font); panel2.add(btn1);
-       // btn1.setBackground(Color.yellow);
+        // btn1.setBackground(Color.yellow);
         btn2 = new JButton("2"); btn2.setFont(font); panel2.add(btn2);
         btn3 = new JButton("3"); btn3.setFont(font); panel2.add(btn3);
         btn4 = new JButton("4"); btn4.setFont(font); panel2.add(btn4);
@@ -60,7 +61,7 @@ public class Cal extends JFrame implements ActionListener {
         btnDot     = new JButton("."); btnDot.setFont(font); panel2.add(btnDot);
         btnEqual   = new JButton("="); btnEqual.setFont(font); panel2.add(btnEqual);
         btnPercent = new JButton("%"); btnPercent.setFont(font); panel2.add(btnPercent);
-        btnBack    = new JButton("<--"); btnBack.setFont(font);  panel2.add(btnBack);
+        btnBack    = new JButton("<-"); btnBack.setFont(font);  panel2.add(btnBack);
 
 
 
@@ -96,20 +97,23 @@ public class Cal extends JFrame implements ActionListener {
         btnMul.addActionListener(this);
 
         setVisible(true);
-       // setResizable(false);
+        // setResizable(false);
     }
 
     public static void main(String[] args) {
 
-        new Cal();
+        new Cal2();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String textRecive;
 
+        Stack sk = new Stack();
+
+
         double previousOpreationValue = 0,afterOperationValue = 0;
-         int flag = 0;
+        int flag = 0;
 
 
         if(e.getSource() == btn1)
@@ -168,9 +172,11 @@ public class Cal extends JFrame implements ActionListener {
         else if(e.getSource() == btnAdd)
         {
             previousOpreationValue = Double.parseDouble(tf1.getText());
-            flag = 1;
-            tf1.setText("");
+            sk.push(previousOpreationValue);
+            sk.push(1);
 
+            tf1.setText("");
+            flag = 1;
 
         }
         else if(e.getSource() == btnSub)
@@ -178,6 +184,8 @@ public class Cal extends JFrame implements ActionListener {
             previousOpreationValue = Double.parseDouble(tf1.getText());
             tf1.setText("");
             flag = 2;
+            sk.push(previousOpreationValue);
+            sk.push(2);
 
         }
         else if(e.getSource() == btnDiv)
@@ -185,6 +193,8 @@ public class Cal extends JFrame implements ActionListener {
             previousOpreationValue = Double.parseDouble(tf1.getText());
             tf1.setText("");
             flag = 3;
+            sk.push(previousOpreationValue);
+            sk.push(3);
 
         }
         else if(e.getSource() == btnClr)
@@ -193,42 +203,30 @@ public class Cal extends JFrame implements ActionListener {
             tf1.setText(null);
 
         }
-        else if(e.getSource() == btnBack)
-        {
-            int len = tf1.getText().length();
-            //int num = tf1.getText().length() - 1;
-            int num = tf1.getText().length() - 1;
-            String store;
-
-            if(len > 0)
-            {
-                StringBuilder ba = new StringBuilder(tf1.getText());
-                ba.deleteCharAt(num);
-                store = ba.toString();
-                tf1.setText(store);
-            }
-        }
         else if(e.getSource() == btnEqual)
         {
+            String s2 = tf1.getText();
+            afterOperationValue = Double.parseDouble(s2);
 
-        //    tf1.setText("");
-            if(flag == 1)
-            {
-                String s2 = tf1.getText();
-                double af  = Double.parseDouble(s2);
-                double total = previousOpreationValue + af ;
+            double v1 = (double) sk.pop();
+            double v2 = (double) sk.pop();
+          //  double v1 = (double) sk.pop();
 
-               // tf1.setText("Flag inside one 1");
-                tf1.setText(Double.toString(total));
-            }
-            else if (flag == 2)
-            {
-                tf1.setText("Flag 2 here");
-            }
-            else
-            {
-                tf1.setText(" Out side on Flag");
-            }
+            tf1.setText(" Out side on Flag"+sk.peek());
+
+            //    tf1.setText("");
+//            if( v2 == 1)
+//            {
+//                tf1.setText("Flag inside one 1");
+//                double v3 = (double) sk.pop();
+//
+//                double total =  v1 + v3;
+//                tf1.setText(Double.toString(total));
+//            }
+//            else
+//            {
+//                tf1.setText(" Out side on Flag");
+//            }
         }
     }
 }
