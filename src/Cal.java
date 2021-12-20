@@ -176,17 +176,28 @@ public class Cal extends JFrame implements ActionListener {
         else if(e.getSource() == btnSub)
         {
             previousOpreationValue = Double.parseDouble(tf1.getText());
-            tf1.setText("");
             flag = 2;
+            tf1.setText("");
+
+
+        }
+        else if(e.getSource() == btnMul)
+        {
+            previousOpreationValue = Double.parseDouble(tf1.getText());
+            flag = 3;
+            tf1.setText("");
+
 
         }
         else if(e.getSource() == btnDiv)
         {
             previousOpreationValue = Double.parseDouble(tf1.getText());
+            flag = 4;
             tf1.setText("");
-            flag = 3;
+
 
         }
+
         else if(e.getSource() == btnClr)
         {
 
