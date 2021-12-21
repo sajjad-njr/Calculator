@@ -8,16 +8,22 @@ public class Cal extends JFrame implements ActionListener {
     JPanel panel1,panel2,panel3;
     JTextField tf1;
     JButton btn1,btn2,btn3,btn4,btn5 ,btn6,btn7,btn8,btn9,btn0,btnDot,btnEqual,btnClr ,btnAdd,btnSub,btnDiv,btnMul,btnPercent,btnBack;
+    JButton btnSin,btnCos,btnTan,btnSqurt,btnPower,btnLog,btnIn;
+
+    String textRecive;
+    double previousOpreationValue = 0,afterOperationValue = 0;
+    int flag = 0;
+
     Cal()
     {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400,500);
+        setSize(400,600);
         setLocationRelativeTo(null);
         setLayout(null);
 
         Font font = new Font("Arial",Font.BOLD,22);
 
-        Font font2 = new Font("Arial",Font.BOLD,20);
+        Font font2 = new Font("Arial",Font.BOLD,24);
 
         panel1 = new JPanel();
         panel1.setBounds(0,0,400,80);
@@ -31,36 +37,53 @@ public class Cal extends JFrame implements ActionListener {
         add(panel1);
 
         panel2 = new JPanel();
-        panel2.setBounds(0,80,300,380);
+        panel2.setBounds(0,85,300,400);
         panel2.setBackground(Color.GRAY);
         panel2.setLayout(null);
-        panel2.setLayout(new GridLayout(5,3,2,2));
+        panel2.setLayout(new GridLayout(5,4,3,3));
         add(panel2);
 
 
         panel3 = new JPanel();
-        panel3.setBounds(300,80,100,380);
+        panel3.setBounds(300,85,100,400);
         panel3.setLayout(new GridLayout(5,1,3,3));
         panel3.setBackground(Color.LIGHT_GRAY);
         add(panel3);
 
 
+
+              // btnPower,btnLog,btnIn;
+
+        btnSin = new JButton("sin");btnSin.setFont(font);panel2.add(btnSin);
+        btnCos = new JButton("cos");btnCos.setFont(font);panel2.add(btnCos);
+        btnTan = new JButton("tan"); btnTan.setFont(font);panel2.add(btnTan);
+        btnBack    = new JButton("<--"); btnBack.setFont(font);  panel2.add(btnBack);
+        btnSqurt = new JButton("Sqr");  btnSqurt.setFont(font);panel2.add( btnSqurt);
+
         btn1 = new JButton("1");btn1.setFont(font); panel2.add(btn1);
+
        // btn1.setBackground(Color.yellow);
         btn2 = new JButton("2"); btn2.setFont(font); panel2.add(btn2);
         btn3 = new JButton("3"); btn3.setFont(font); panel2.add(btn3);
+        btnPower = new JButton("x^n");   btnPower.setFont(font);panel2.add( btnPower);
+
         btn4 = new JButton("4"); btn4.setFont(font); panel2.add(btn4);
         btn5 = new JButton("5"); btn5.setFont(font); panel2.add(btn5);
         btn6 = new JButton("6"); btn6.setFont(font); panel2.add(btn6);
+
+        btnLog = new JButton("log");    btnLog.setFont(font);panel2.add(  btnLog);
         btn7 = new JButton("7"); btn7.setFont(font); panel2.add(btn7);
         btn8 = new JButton("8"); btn8.setFont(font); panel2.add(btn8);
         btn9 = new JButton("9"); btn9.setFont(font); panel2.add(btn9);
+        btnClr = new JButton("C"); btnClr.setFont(font2); panel2.add(btnClr);
+
+
         btn0 = new JButton("0"); btn0.setFont(font); panel2.add(btn0);
 
         btnDot     = new JButton("."); btnDot.setFont(font); panel2.add(btnDot);
         btnEqual   = new JButton("="); btnEqual.setFont(font); panel2.add(btnEqual);
-        btnPercent = new JButton("%"); btnPercent.setFont(font); panel2.add(btnPercent);
-        btnBack    = new JButton("<--"); btnBack.setFont(font);  panel2.add(btnBack);
+
+
 
 
 
@@ -69,7 +92,8 @@ public class Cal extends JFrame implements ActionListener {
         btnSub = new JButton("-"); btnSub.setFont(font2); panel3.add(btnSub);
         btnMul = new JButton("*"); btnMul.setFont(font2); panel3.add(btnMul);
         btnDiv = new JButton("/"); btnDiv.setFont(font2); panel3.add(btnDiv);
-        btnClr = new JButton("C"); btnClr.setFont(font2); panel3.add(btnClr);
+        btnPercent = new JButton("%"); btnPercent.setFont(font2); panel3.add(btnPercent);
+
 
         tf1.addActionListener(this);
         btn1.addActionListener(this);
@@ -106,10 +130,7 @@ public class Cal extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String textRecive;
 
-        double previousOpreationValue = 0,afterOperationValue = 0;
-         int flag = 0;
 
 
         if(e.getSource() == btn1)
