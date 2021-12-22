@@ -100,10 +100,7 @@ public class Cal2 extends JFrame implements ActionListener {
         // setResizable(false);
     }
 
-    public static void main(String[] args) {
 
-        new Cal2();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -228,5 +225,9 @@ public class Cal2 extends JFrame implements ActionListener {
 //                tf1.setText(" Out side on Flag");
 //            }
         }
+    }
+    public static void main(String[] args) {
+
+        System.out.println(Math.sin(90));
     }
 }
